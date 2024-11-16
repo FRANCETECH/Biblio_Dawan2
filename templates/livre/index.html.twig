@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}  
+
+{% block title "NOS LIVRES" %}
+
+{% block body %}   
+
+    <P>
+        Quis enim aut eum diligat quem metuat, aut eum a quo se metui putet? Coluntur tamen simulatione dumtaxat ad tempus. Quod si forte, ut fit plerumque, ceciderunt, tum intellegitur 
+        quam fuerint inopes amicorum. Quod Tarquinium dixisse ferunt, tum exsulantem se intellexisse quos fidos amicos habuisset, quos infidos, cum iam neutris gratiam referre posset.
+    </P>
+
+    <p>
+        <a class="btn btn-primary btn-sm" href="{{ path('livre.create') }}">Créer un Livre</a> 
+    </p>
+
+
+    <table class="table"> 
+        <thead>
+        <tr>
+            <th>Titre</th> 
+            <th>Actions</th> 
+        </tr>
+        </thead>
+        <tbody>
+        {% for livre in livres %}
+        <tr> 
+            <td> 
+                <a href="{{ path('livre.show', {id: livre.id, slug: livre.slug|replace({'\'': '-', ' ': '-'})|lower}) }}">{{ livre.title }}</a> 
+            </td>
+            <td> 
+            <div class="d-flex gap-1">
+                <a class="btn btn-primary btn-sm" href="{{ path('livre.edit', {id: livre.id}) }}">Editer</a>
+                <form action="{{ path('livre.delete', {id: livre.id}) }}" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                </form>
+            </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}  
